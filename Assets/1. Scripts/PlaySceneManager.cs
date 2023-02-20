@@ -6,15 +6,57 @@ using Photon.Pun; // 포톤 관련 클래스를 사용하기 위함
 public class PlaySceneManager : MonoBehaviourPunCallbacks
 {
     public Transform[] playerSpawnPoints; // 플레이어 스폰 위치
+    public GameObject warningTxt;         // ESC 경고 문구
 
     void Start()
-    {
+    {   
         // 현재 방에 참여한 플레이어 인원
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
 
         // 플레이어 인원에 따라 다른 스폰 위치에 플레이어 생성 (1명이면 0번, 2명이면 1번)
         PhotonNetwork.Instantiate("Player",
             playerSpawnPoints[playerCount - 1].position, Quaternion.identity);
+    }
+
+    private void Update()
+    {
+        // ESC키를 입력했다면
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            StartCoroutine(AfterEsc());
+        }
+    }
+
+    // ESC키 입력 이후로 실행될 기능들
+    public IEnumerator AfterEsc()
+    {
+        // 경고 문구 활성화
+        warningTxt.SetActive(true);
+
+        float time = 0;
+
+        // 방에서 나가거나 3초가 지나기 전까지 반복
+        while (PhotonNetwork.InRoom && time < 3)
+        {
+            // ESC키를 한 번 더 입력했다면
+            if (time != 0 && Input.GetKeyDown(KeyCode.Escape))
+            {
+                // 방에서 퇴장 시도
+                PhotonNetwork.LeaveRoom();
+
+                // 반복문을 끝내서 함수 탈출
+                break;
+            }
+
+            // 시간 재기
+            time += Time.deltaTime;
+
+            // 업데이트 함수가 호출될 때까지 쉬기
+            yield return null;
+        }
+
+        // 경고 문구 비활성화
+        warningTxt.SetActive(false);
     }
 
     // 엔딩 이후로 실행될 기능들

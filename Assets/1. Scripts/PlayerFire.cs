@@ -36,6 +36,9 @@ public class PlayerFire : MonoBehaviour
         // 마우스 좌클릭을 누르는 순간, 내 캐릭터일 때만
         if (Input.GetMouseButtonDown(0) && pv.IsMine)
         {
+
+            AudioManager.instance.Audio_Click(1); // 슈팅 효과음 재생
+
             /* <총알 오브젝트를 이용한 슈팅>
 
                //// 게임 안에 리소스 폴더에서 불러오기한 총알 프리팹의 복사본 생성

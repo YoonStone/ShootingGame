@@ -27,7 +27,8 @@ public class Server : MonoBehaviourPunCallbacks // 포톤 관련 콜백 함수�
     // 시작 버튼 누르면 호출
     void OnClickStart()
     {
-        PhotonNetwork.JoinLobby(); // 로비 접속 시도
+        AudioManager.instance.Audio_Click(0); // 클릭 사운드 재생
+        PhotonNetwork.JoinLobby();           // 로비 접속 시도
         connectInfoTxt.text = "로비 접속 중...";
     }
 
