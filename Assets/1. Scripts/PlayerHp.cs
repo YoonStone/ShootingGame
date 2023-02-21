@@ -126,5 +126,8 @@ public class PlayerHp : MonoBehaviour
 
         // 엔딩 이후의 기능 실행
         StartCoroutine(FindObjectOfType<PlaySceneManager>().AfterEnding());
+
+        // 승리했다면 승리 횟수 증가
+        if (result == "승리") DataManager.instance.WinCount++;
     }
 }

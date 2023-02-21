@@ -8,6 +8,8 @@ public class PlaySceneManager : MonoBehaviourPunCallbacks
     public Transform[] playerSpawnPoints; // 플레이어 스폰 위치
     public GameObject warningTxt;         // ESC 경고 문구
 
+    bool isEnding; // 게임이 끝났는지
+
     void Start()
     {   
         // 현재 방에 참여한 플레이어 인원
@@ -62,6 +64,8 @@ public class PlaySceneManager : MonoBehaviourPunCallbacks
     // 엔딩 이후로 실행될 기능들
     public IEnumerator AfterEnding()
     {
+        isEnding = true;
+
         // 방에서 나가기 전까지 반복
         while (PhotonNetwork.InRoom)
         {
@@ -108,6 +112,9 @@ public class PlaySceneManager : MonoBehaviourPunCallbacks
     // 방에서 플레이어가 퇴장하면 호출
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
+        // 승패가 난 상태에서는 실행 금지
+        if (isEnding) return;
+
         // 모든 PhotonView 컴포넌트를 가져와서 반복
         foreach (var player in FindObjectsOfType<PhotonView>())
         {
