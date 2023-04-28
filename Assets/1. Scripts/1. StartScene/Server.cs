@@ -8,7 +8,7 @@ using Photon.Realtime; // OnDisconnected 함수 선언하면 자동으로 선언
 public class Server : MonoBehaviourPunCallbacks // 포톤 관련 콜백 함수를 상속받기 위함
 {
     public Button startBtn;     // 시작 버튼
-    public Button ExitBtn;      // 종료 버튼
+    public Button exitBtn;      // 종료 버튼
     public GameObject lobby;    // 로비 화면
     public Text connectInfoTxt; // 연결 현황 텍스트
     public Text winCountTxt;    // 승리 횟수 텍스트
@@ -18,7 +18,7 @@ public class Server : MonoBehaviourPunCallbacks // 포톤 관련 콜백 함수�
         // 시작 버튼의 OnClick() 함수에 OnClickStart() 함수 연결
         startBtn.onClick.AddListener(OnClickStart);
         // 종료 버튼의 OnClick() 함수에 OnClickExit() 함수 연결
-        ExitBtn.onClick.AddListener(OnClickExit);
+        exitBtn.onClick.AddListener(OnClickExit);
 
         // 시작 버튼 비활성화 상태로 시작
         startBtn.interactable = false;

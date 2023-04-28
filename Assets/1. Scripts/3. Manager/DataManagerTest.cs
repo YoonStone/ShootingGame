@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO; // ÆÄÀÏ ÀÔÃâ·Â °ü·Ã Å¬·¡½º¸¦ »ç¿ëÇÏ±â À§ÇÔ
+using System.IO; // íŒŒì¼ ì…ì¶œë ¥ ê´€ë ¨ í´ë˜ìŠ¤ë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•¨
 
-[System.Serializable] // Á÷·ÄÈ­
-public class Data // ÀúÀå¿ë Å¬·¡½º
+[System.Serializable] // ì§ë ¬í™”
+public class Data // ì €ì¥ìš© í´ë˜ìŠ¤
 {
     public float hp;
     public string nickname;
@@ -13,11 +13,11 @@ public class Data // ÀúÀå¿ë Å¬·¡½º
 
 public class DataManagerTest : MonoBehaviour
 {
-    public Data data; // ÀúÀå¿ë Å¬·¡½ºÀÇ ÀÎ½ºÅÏ½º
+    public Data data; // ì €ì¥ìš© í´ë˜ìŠ¤ì˜ ì¸ìŠ¤í„´ìŠ¤
 
-    string path; // ÀúÀå °æ·Î
+    string path; // ì €ì¥ ê²½ë¡œ
 
-    // ½Ì±ÛÅæ
+    // ì‹±ê¸€í†¤
     public static DataManagerTest instance;
     private void Awake()
     {
@@ -32,49 +32,49 @@ public class DataManagerTest : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // ÀúÀå °æ·Î ¼³Á¤
+        // ì €ì¥ ê²½ë¡œ ì„¤ì •
         path = Application.persistentDataPath + "/Data.json";
 
-        DataManagerTest.instance.Load(); // ºÒ·¯¿À±â
+        DataManagerTest.instance.Load(); // ë¶ˆëŸ¬ì˜¤ê¸°
     }
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(1)) // ¿ìÅ¬¸¯ÇÏ¸é
+        if(Input.GetMouseButtonDown(1)) // ìš°í´ë¦­í•˜ë©´
         {
-            DataManagerTest.instance.Save(); // ÀúÀå
+            DataManagerTest.instance.Save(); // ì €ì¥
         }
     }
 
-    // ÀúÀå
+    // ì €ì¥
     public void Save()
     {
-        // ÀúÀå¿ë Å¬·¡½º¸¦ JSON Çü½Ä(¹®ÀÚ¿­)À¸·Î º¯È¯
+        // ì €ì¥ìš© í´ë˜ìŠ¤ë¥¼ JSON í˜•ì‹(ë¬¸ìì—´)ìœ¼ë¡œ ë³€í™˜
         string saveData = JsonUtility.ToJson(data, true);
 
-        // ÆÄÀÏ·Î ÀúÀå
+        // íŒŒì¼ë¡œ ì €ì¥
         File.WriteAllText(path, saveData);
 
-        print("ÀúÀåÇÏ±â ¿Ï·á");
+        print("ì €ì¥í•˜ê¸° ì™„ë£Œ");
     }
 
-    // ºÒ·¯¿À±â
+    // ë¶ˆëŸ¬ì˜¤ê¸°
     public void Load()
     {
-        // ÀúÀåµÈ ÆÄÀÏÀÌ ÀÖ´Ù¸é
+        // ì €ì¥ëœ íŒŒì¼ì´ ìˆë‹¤ë©´
         if (File.Exists(path))
         {
-            // ÀúÀåµÈ ÆÄÀÏ ÀĞ¾î¿À±â
+            // ì €ì¥ëœ íŒŒì¼ ì½ì–´ì˜¤ê¸°
             string loadData = File.ReadAllText(path);
 
-            // JSON Çü½Ä(¹®ÀÚ¿­)À¸·Î ÀúÀåµÈ ÆÄÀÏÀ» Data Å¬·¡½º ÇüÅÂ·Î º¯È¯
+            // JSON í˜•ì‹(ë¬¸ìì—´)ìœ¼ë¡œ ì €ì¥ëœ íŒŒì¼ì„ Data í´ë˜ìŠ¤ í˜•íƒœë¡œ ë³€í™˜
             data = JsonUtility.FromJson<Data>(loadData);
 
-            print("ºÒ·¯¿À±â ¿Ï·á");
+            print("ë¶ˆëŸ¬ì˜¤ê¸° ì™„ë£Œ");
         }
         else
         {
-            print("ÀúÀåµÈ ÆÄÀÏ ¾øÀ½");
+            print("ì €ì¥ëœ íŒŒì¼ ì—†ìŒ");
         }
     }
 }
