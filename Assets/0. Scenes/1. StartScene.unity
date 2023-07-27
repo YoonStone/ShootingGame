@@ -2114,7 +2114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startBtn: {fileID: 1913860590}
-  ExitBtn: {fileID: 1518614225}
+  exitBtn: {fileID: 1518614225}
   lobby: {fileID: 261647113}
   connectInfoTxt: {fileID: 326965271}
   winCountTxt: {fileID: 223974228}
